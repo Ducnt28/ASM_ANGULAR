@@ -1,0 +1,37 @@
+<div *ngIf="products && products.length > 0">
+  <div class="flex justify-between pb-8">
+    <h2 class=" text font-sans font-bold text-gray-800 text-3xl ">Danh Sách Sản Phẩm</h2>
+    <a [routerLink]="['/admin/addProduct']" class="inline-block rounded border border-indigo-600 bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-85  focus:outline-none focus:ring active:text-indigo-500">Thêm sản phẩm</a>
+  </div>
+  <table class="border-2  table-auto  text-center  py-12">
+    <thead>
+      <tr class="border-spacing-9 bg-gray-300">
+        <th class="border-2 border-slate-350 p-2 text-gray-800">Stt</th>
+        <th class="border-2 border-slate-350 p-2 text-gray-800">Tên</th>
+        <th class="border-2 border-slate-350 p-2 text-gray-800">Giá</th>
+        <th class="border-2 border-slate-350 p-2 text-gray-800">Mô tả</th>
+        <th class="border-2 border-slate-350 p-2 text-gray-800">Ảnh</th>
+        <th class="border-2 border-slate-350 p-2 text-gray-800">Hành động</th>
+      </tr>
+    </thead>
+    <tbody >
+      <tr *ngFor="let product of products; let index = index">
+        <td class="border-2 border-slate-350 p-2">{{index + 1}}</td>
+        <td  class="border-2 border-slate-350 p-2">
+          <a [routerLink]="['/detail_Product', product.id]" >{{product.title |  uppercase}}</a>
+        </td>
+        <td class="border-2 border-slate-350 p-2 ">{{product.price | currency: 'đ' }}</td>
+        <td class="border-2 border-slate-350 p-2">{{product.description}}</td>
+        <td class="border-2 border-slate-350 p-2">
+            <img width="200" src="{{product.images[1]}}" alt="{{product.title}}">
+        </td>
+
+        <td class="border-2 border-slate-350 p-2">
+          <a [routerLink]="['/admin/editProduct', product.id]" class="inline-block rounded border border-indigo-600 bg-indigo-600 px-6 py-2 text-sm font-medium text-white hover:bg-opacity-85  focus:outline-none focus:ring active:text-indigo-500 mb-2">Sửa</a>
+          <button (click)="deleteProduct(product.id)" class="inline-block rounded border border-red-600 bg-red-600 px-6 py-2 text-sm font-medium text-white hover:bg-opacity-85  focus:outline-none focus:ring active:text-red-500 mb-2">Xóa</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <ng-template #notFound></ng-template>
